@@ -39,7 +39,7 @@ export const Socket = (props) => {
   useEffect(() => {
     if (isAuth) {
       const connect = async () => {
-        const tmp = await io(`${process.env.REACT_APP_BASE_URL}/messenger`, {
+        const tmp = await io(`${process.env.REACT_APP_API_URL}/messenger`, {
           transports: ["polling", "websocket"],
         });
 

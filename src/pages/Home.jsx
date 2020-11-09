@@ -22,8 +22,9 @@ export default function (props) {
   const [isShow, setShow] = useState(false);
 
   const handleAvatarClick = async (_id) => {
+    if (!_id) return;
     const conversation = await getConversation(_id);
-    setCurrent(conversation);
+    if (conversation) setCurrent(conversation);
   };
 
   return (

@@ -83,7 +83,7 @@ export default ({ online, handleAvatarClick, conversations, isShow }) => {
                 <Avatar
                   src={e.avatar}
                   size="7rem"
-                  onClick={(e) => handleAvatarClick(e._id)}
+                  onClick={(event) => handleAvatarClick(e._id)}
                   style={{ marginRight: "1rem" }}
                 />
               </List.Item>

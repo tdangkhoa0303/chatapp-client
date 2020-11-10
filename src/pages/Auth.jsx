@@ -1,28 +1,17 @@
-import { useContext, useState } from "react";
+import { useContext, useState, Fragment } from "react";
 import { Input, Button } from "../components/UI";
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import styled from "@emotion/styled";
 
 import AuthContext from "../contexts/AuthContext";
-import { Heading } from "../components/UI/Typography";
-import { Flex } from "../components/theme";
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  padding: 3rem 2rem;
-  align-items: center;
-  justify-content: center;
-  max-width: 40rem;
-  width: 90%;
-  box-shadow: 2px 3px 14px rgba(3, 3, 3, 0.1);
-`;
+import { Heading, Text } from "../components/UI/Typography";
+import { Flex, Form } from "../components/theme";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState(true);
   const { signIn } = useContext(AuthContext);
 
   const _handleSignIn = (e) => {
@@ -48,7 +37,10 @@ const Auth = () => {
           name="email"
           id="email"
           label="Email"
-          changed={(e) => setEmail(e.target.value.trim())}
+          validator={(value) =>
+            value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)
+          }
+          changed={(value) => setEmail(value.trim())}
           value={email}
         />
         <Input
@@ -56,10 +48,14 @@ const Auth = () => {
           name="password"
           id="password"
           label="Password"
-          changed={(e) => setPassword(e.target.value)}
+          changed={(value) => setPassword(value)}
           value={password}
         />
-        <Button.Primary>Sign In</Button.Primary>
+        <Button.Primary type="submit">Sign In</Button.Primary>
+        <Text>
+          Not a member?
+          <span onClick={() => setRole(false)}>Sign Up Now</span>
+        </Text>
       </Form>
     </Flex>
   );

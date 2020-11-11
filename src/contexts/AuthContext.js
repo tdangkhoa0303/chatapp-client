@@ -31,6 +31,7 @@ export function Provider(props) {
       } = await requestLogin(email, password);
       if (data) __setUser(data);
     } catch (err) {
+      console.log(err);
       setAuth({ isAuth: false, user: null });
     }
   };

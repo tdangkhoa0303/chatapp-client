@@ -11,7 +11,7 @@ import { Flex, Form } from "../components/theme";
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState(true);
+  const [error, setError] = useState("");
   const { signIn } = useContext(AuthContext);
 
   const _handleSignIn = (e) => {
@@ -52,10 +52,6 @@ const Auth = () => {
           value={password}
         />
         <Button.Primary type="submit">Sign In</Button.Primary>
-        <Text>
-          Not a member?
-          <span onClick={() => setRole(false)}>Sign Up Now</span>
-        </Text>
       </Form>
     </Flex>
   );

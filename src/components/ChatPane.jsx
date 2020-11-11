@@ -117,7 +117,7 @@ export default ({ conversation, sendMessage }) => {
                   type="text"
                   name="message"
                   id="message"
-                  changed={(e) => setMessage(e.target.value)}
+                  changed={(value) => setMessage(value)}
                   value={message}
                   placeholder="Enter message..."
                   style={{ margin: "0 1rem 0 0" }}

@@ -1,2 +1,2 @@
-/api/*  https://keentee-chatapp.herokuapp.com/:splat  200
+/api/*  https://keentee-chatapp.herokuapp.com/  200
 /*  /index.html  200

@@ -60,7 +60,7 @@ export const Socket = (props) => {
   useEffect(() => {
     if (socket) {
       try {
-        socket.emit("authenticate", { token: user.token });
+        authenticate();
 
         socket.on("update", handleOnlineChange);
 
@@ -75,6 +75,8 @@ export const Socket = (props) => {
       };
     }
   }, [socket]);
+
+  const authenticate = () => socket.emit("authenticate", { token: user.token });
 
   const getConversation = async (id) => {
     const tmp = [user._id, id].sort().join("");

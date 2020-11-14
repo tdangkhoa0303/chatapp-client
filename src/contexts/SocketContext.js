@@ -43,8 +43,6 @@ export const Socket = (props) => {
           transports: ["polling", "websocket"],
         });
 
-        sk.emit("authenticate", { token: user.token });
-
         const {
           data: {
             data: { conversations },
@@ -62,6 +60,8 @@ export const Socket = (props) => {
   useEffect(() => {
     if (socket) {
       try {
+        socket.emit("authenticate", { token: user.token });
+
         socket.on("update", handleOnlineChange);
 
         socket.on("message", recieveMessage);

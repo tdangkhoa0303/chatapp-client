@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getCookie, setCookie } from "../helpers/cookieHelper";
 import { requestTokenRefresh, requestLogin, setToken } from "../helpers/api";
+import { v4 } from "uuid";
 
 const AuthContext = React.createContext();
 
@@ -8,8 +9,8 @@ export function Provider(props) {
   const [auth, setAuth] = useState({ isAuth: null, user: null });
 
   useEffect(() => {
-    const isLogin = Boolean(getCookie("auth"));
-
+    const isLogin = getCookie("auth");
+    console.log(isLogin);
     if (isLogin) {
       refreshToken();
     } else setAuth({ isAuth: false, user: null });
@@ -18,7 +19,7 @@ export function Provider(props) {
   const __setUser = (data) => {
     const { user, refreshTTL } = data;
     setToken(user.token);
-    setCookie("auth", false, refreshTTL);
+    setCookie("auth", v4(), refreshTTL);
     setAuth({
       isAuth: true,
       user,

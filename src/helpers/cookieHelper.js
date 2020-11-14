@@ -1,11 +1,11 @@
 export const getCookie = (key) => {
   const cookieString = document.cookie;
-  if (cookieString)
-    return cookieString
-      .split(";")
-      .find((e) => e.startsWith(key))
-      .split("=")[1];
-  return null;
+
+  if (!cookieString) return;
+
+  const cookie = cookieString.split("; ").find((e) => e.startsWith(key));
+  if (cookie) return cookie.split("=")[1];
+  return;
 };
 
 export const setCookie = (key, value, ttl) => {

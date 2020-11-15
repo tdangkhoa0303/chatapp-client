@@ -15,8 +15,7 @@ export default ({ online, handleAvatarClick, conversations, isShow }) => {
   const [loading, setLoading] = useState(false);
   const [contacts, setContacts] = useState([]);
 
-  const handleSearchChange = async (e) => {
-    const q = e.target.value.trim();
+  const handleSearchChange = async (q) => {
     if (q) {
       setSearch(q);
       setLoading(true);

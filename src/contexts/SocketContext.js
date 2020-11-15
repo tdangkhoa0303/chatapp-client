@@ -39,8 +39,10 @@ export const Socket = (props) => {
   useEffect(() => {
     if (isAuth) {
       const connect = async () => {
-        const sk = await io(`${process.env.REACT_APP_API_URL}/messenger`, {
-          transports: ["polling", "websocket"],
+        const sk = await io(`${process.env.REACT_APP_SOCKET_URL}/messenger`, {
+          query: {
+            auth: user.token,
+          },
         });
 
         const {
@@ -60,11 +62,13 @@ export const Socket = (props) => {
   useEffect(() => {
     if (socket) {
       try {
-        socket.emit("authenticate", { token: user.token });
-
         socket.on("update", handleOnlineChange);
 
         socket.on("message", recieveMessage);
+
+        socket.on("error", (error) => {
+          console.log(error);
+        });
       } catch (err) {
         console.log(err);
       }
@@ -75,8 +79,6 @@ export const Socket = (props) => {
       };
     }
   }, [socket]);
-
-  const authenticate = () => socket.emit();
 
   const getConversation = async (id) => {
     const tmp = [user._id, id].sort().join("");

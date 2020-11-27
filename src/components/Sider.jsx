@@ -80,7 +80,7 @@ export default ({ online, handleAvatarClick, conversations, isShow }) => {
             Object.values(online).map((e) => (
               <List.Item key={e._id}>
                 <Avatar
-                  src={e.avatar}
+                  src={e.avatar.url}
                   size="7rem"
                   onClick={(event) => handleAvatarClick(e._id)}
                   style={{ marginRight: "1rem" }}

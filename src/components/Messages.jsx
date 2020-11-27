@@ -28,7 +28,7 @@ const Messages = ({ messages, member }) => {
         padding: "1rem 0",
       }}
     >
-      {!isMine && <Avatar src={member.avatar} size="4rem" />}
+      {!isMine && <Avatar src={member.avatar.url} size="4rem" />}
       <Flex
         css={{
           flexDirection: "column",

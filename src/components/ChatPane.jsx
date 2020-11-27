@@ -78,7 +78,7 @@ export default ({ conversation, sendMessage }) => {
               padding: "2rem",
             }}
           >
-            <Avatar src={member.avatar} />
+            <Avatar src={member.avatar.url} />
             <Typography.Heading level={4} style={{ fontWeight: "400" }}>
               {conversationName}
             </Typography.Heading>

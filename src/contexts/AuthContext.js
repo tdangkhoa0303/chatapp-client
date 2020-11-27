@@ -10,7 +10,6 @@ export function Provider(props) {
 
   useEffect(() => {
     const isLogin = getCookie("auth");
-    console.log(isLogin);
     if (isLogin) {
       refreshToken();
     } else setAuth({ isAuth: false, user: null });

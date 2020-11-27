@@ -44,7 +44,7 @@ const Card = ({ conversation }) => {
       }}
       onClick={handleConversationClick}
     >
-      <Avatar src={member.avatar} size={"5rem"} />
+      <Avatar src={member.avatar.url} size={"5rem"} />
       <Flex
         css={{
           flexDirection: "column",
@@ -62,20 +62,21 @@ const Card = ({ conversation }) => {
           {conversationName}
         </Heading>
 
-        <Text
-          style={{
-            fontSize: "1.5rem",
-            fontWeight: seen ? "400" : "500",
-            lineHeight: "",
-            maxHeight: "2.25rem",
-            height: "2.25rem",
-          }}
-        >
-          {lastMessage &&
-            `${lastMessage.from === user._id ? "You" : member.fullName}: ${
+        {lastMessage && (
+          <Text
+            style={{
+              fontSize: "1.5rem",
+              fontWeight: seen ? "400" : "500",
+              lineHeight: "",
+              maxHeight: "2.25rem",
+              height: "2.25rem",
+            }}
+          >
+            {`${lastMessage.from === user._id ? "You" : member.fullName}: ${
               lastMessage.content
             }`}
-        </Text>
+          </Text>
+        )}
       </Flex>
     </Flex>
   );

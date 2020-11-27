@@ -37,14 +37,20 @@ export const Socket = (props) => {
   }, [conversations]);
 
   useEffect(() => {
+    let sk = null;
     if (isAuth) {
       const connect = async () => {
-        const sk = await io(`${process.env.REACT_APP_SOCKET_URL}/messenger`, {
-          query: {
-            auth: user.token,
-          },
+        sk = await io(`${process.env.REACT_APP_SOCKET_URL}/messenger`);
+
+        sk.on("update", handleOnlineChange);
+
+        sk.on("message", recieveMessage);
+
+        sk.on("error", (error) => {
+          console.log(error);
         });
 
+        sk.emit("authenticate", { auth: user.token });
         const {
           data: {
             data: { conversations },
@@ -57,28 +63,12 @@ export const Socket = (props) => {
 
       connect();
     }
-  }, [isAuth]);
-
-  useEffect(() => {
-    if (socket) {
-      try {
-        socket.on("update", handleOnlineChange);
-
-        socket.on("message", recieveMessage);
-
-        socket.on("error", (error) => {
-          console.log(error);
-        });
-      } catch (err) {
-        console.log(err);
-      }
-
+    if (sk)
       return () => {
-        socket.off("update", handleOnlineChange);
-        socket.off("message", recieveMessage);
+        sk.off("update", handleOnlineChange);
+        sk.off("message", recieveMessage);
       };
-    }
-  }, [socket]);
+  }, [isAuth]);
 
   const getConversation = async (id) => {
     const tmp = [user._id, id].sort().join("");
@@ -125,7 +115,9 @@ export const Socket = (props) => {
     await seenConversation(conversationId, seen);
   };
 
-  const handleOnlineChange = (users) => setOnline(users);
+  const handleOnlineChange = (users) => {
+    setOnline(users);
+  };
 
   const sendMessage = (conversationId, content) => {
     try {
